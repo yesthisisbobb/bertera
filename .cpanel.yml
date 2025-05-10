@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/berteran/repositories/bertera
+    - /bin/cp -R legacy $DEPLYOPATH
