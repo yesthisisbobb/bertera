@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/berteran/public_html
-    - /bin/cp -R repositories/bertera/legacy $DEPLYOPATH
+    - /bin/cp -R repositories/bertera/legacy $DEPLOYPATH
