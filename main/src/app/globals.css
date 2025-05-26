@@ -1,0 +1,157 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%; /* Off-white, very light grey */
+    --foreground: 55 20% 22%; /* Darker brown for text */
+
+    --card: 60 56% 92%; /* #F5F5DC - Light Beige for cards */
+    --card-foreground: 55 20% 22%; /* Darker brown for text on cards */
+
+    --popover: 60 56% 92%; /* Light Beige for popovers */
+    --popover-foreground: 55 20% 22%;
+
+    --primary: 55 20% 42%; /* #847F53 - Earthy Brown */
+    --primary-foreground: 60 100% 98%; /* Very light beige/off-white for text on primary */
+
+    --secondary: 55 20% 70%; /* Lighter brown for secondary elements */
+    --secondary-foreground: 55 20% 22%; /* Darker brown text on secondary */
+
+    --muted: 60 50% 88%; /* Muted version of beige */
+    --muted-foreground: 55 20% 40%; /* Slightly lighter brown for muted text */
+
+    --accent: 43 89% 38%; /* #B8860B - Muted Gold */
+    --accent-foreground: 0 0% 100%; /* White for text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 55 20% 80%; /* Softer border, derived from brown/beige */
+    --input: 55 20% 88%; /* Input background, similar to muted or lighter border */
+    --ring: 43 89% 38%; /* Accent color for rings */
+
+    --radius: 0.5rem;
+
+    /* Chart colors - can be adjusted to fit the theme */
+    --chart-1: 55 30% 50%;
+    --chart-2: 43 70% 50%;
+    --chart-3: 55 20% 60%;
+    --chart-4: 43 60% 60%;
+    --chart-5: 55 15% 70%;
+
+    /* Sidebar colors (if used, defaults to match general theme) */
+    --sidebar-background: 55 20% 35%; 
+    --sidebar-foreground: 60 50% 90%;
+    --sidebar-primary: 43 89% 38%;
+    --sidebar-primary-foreground: 43 20% 98%;
+    --sidebar-accent: 55 20% 50%;
+    --sidebar-accent-foreground: 60 50% 95%;
+    --sidebar-border: 55 20% 40%;
+    --sidebar-ring: 43 89% 38%;
+  }
+
+  .dark {
+    --background: 55 10% 10%; /* Dark brown */
+    --foreground: 60 40% 85%; /* Light beige/gray for text */
+    --card: 55 10% 15%;
+    --card-foreground: 60 40% 85%;
+    --popover: 55 10% 15%;
+    --popover-foreground: 60 40% 85%;
+    --primary: 55 20% 52%; /* Lighter earthy brown for dark mode */
+    --primary-foreground: 55 10% 5%; /* Dark text on primary */
+    --secondary: 55 15% 25%;
+    --secondary-foreground: 60 40% 85%;
+    --muted: 55 15% 20%;
+    --muted-foreground: 60 30% 70%;
+    --accent: 43 80% 48%; /* Slightly adjusted gold for dark mode */
+    --accent-foreground: 43 10% 5%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 55 10% 20%;
+    --input: 55 10% 20%;
+    --ring: 43 80% 48%;
+
+    --chart-1: 55 30% 60%;
+    --chart-2: 43 70% 60%;
+    --chart-3: 55 20% 70%;
+    --chart-4: 43 60% 70%;
+    --chart-5: 55 15% 80%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Remove default font-family to let Next/Font take over */
+  }
+}
+
+@layer utilities {
+  .product-card-animate-in {
+    opacity: 0; /* Initial state for animation */
+    animation: fadeInAndSlightUpProductCard 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Faster with different easing */
+  }
+
+  @keyframes fadeInAndSlightUpProductCard {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98); /* More pronounced Y movement and subtle scale down */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Shimmer animation for loading screen */
+  .shimmer-container {
+    /* Ensures the ::before pseudo-element is positioned relative to this container */
+    /* and that the shimmer effect is clipped to the container's bounds. */
+    /* 'relative' and 'overflow-hidden' are applied directly in LoadingScreen.tsx */
+  }
+
+  .shimmer-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start further left to ensure a full sweep */
+    width: 75%; /* Width of the shimmer highlight - Increased */
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%, /* Light mode shimmer: more opaque */
+      transparent 100%
+    );
+    transform: skewX(-25deg); /* Gives the shimmer an angled look */
+    animation: shimmer 1.5s infinite linear; /* Faster animation */
+    z-index: 1; 
+  }
+
+  .dark .shimmer-container::before {
+     background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%, /* Dark mode shimmer: more opaque */
+      transparent 100%
+    );
+  }
+
+  @keyframes shimmer {
+    0% {
+      left: -150%; /* Start off-screen to the left */
+    }
+    100% {
+      left: 150%; /* End off-screen to the right, ensuring a full sweep */
+    }
+  }
+}
